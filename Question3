@@ -1,0 +1,10 @@
+Data Quality Issues:
+Missing Values: If any columns have a significant number of missing values, it indicates data incompleteness and potential issues with data collection or recording.
+
+Duplicates: If there are duplicates in the data, it suggests data duplication or data entry errors.
+
+Outliers: By examining summary statistics, we can identify outliers in numerical columns. These could be indications of data entry errors, measurement errors, or other anomalies.
+
+Unexpected or Invalid Values: By inspecting the unique values and their frequencies in categorical columns, we can identify unexpected or invalid values that might indicate data quality issues, such as data entry errors or inconsistencies.
+
+Inconsistent Relationship: If there are discrepancies or inconsistencies between the values in different columns that are expected to be related, it may indicate data integrity issues or inconsistencies in recording.
