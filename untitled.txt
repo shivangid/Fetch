@@ -1,0 +1,30 @@
+Comparison of the ranking of the top 5 brands by receipts scanned for the recent month with the previous month:
+WITH recent_month AS (
+  SELECT b._id AS brand_id, b.name AS brand_name, COUNT(*) AS receipts_scanned
+  FROM receipts r
+  JOIN brand b ON r.brand_id = b._id
+  WHERE MONTH(r.dateScanned) = MONTH(CURRENT_DATE()) AND YEAR(r.dateScanned) = YEAR(CURRENT_DATE())
+  GROUP BY b._id, b.name
+), previous_month AS (
+  SELECT b._id AS brand_id, COUNT(*) AS receipts_scanned
+  FROM receipts r
+  JOIN brand b ON r.brand_id = b._id
+  WHERE MONTH(r.dateScanned) = MONTH(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+    AND YEAR(r.dateScanned) = YEAR(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+  GROUP BY b._id
+)
+SELECT recent.brand_name, recent.receipts_scanned, previous.receipts_scanned AS previous_month_receipts
+FROM recent_month recent
+JOIN previous_month previous ON recent.brand_id = previous.brand_id
+ORDER BY recent.receipts_scanned DESC;
+
+
+Top 5 brands by receipts scanned for the most recent month:
+
+SELECT b.name AS brand_name, COUNT(*) AS receipts_scanned
+FROM receipts r
+JOIN brand b ON r.brand_id = b._id
+WHERE MONTH(r.dateScanned) = MONTH(CURRENT_DATE()) AND YEAR(r.dateScanned) = YEAR(CURRENT_DATE())
+GROUP BY b.name
+ORDER BY receipts_scanned DESC
+LIMIT 5;
